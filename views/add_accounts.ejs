@@ -1,0 +1,45 @@
+<%- include('layout/header') %>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-success">
+                    <h3 class="text-light">Ajouter des comptes (<%= user.name %>)</h3>
+                </div>
+                <div class="card-body p-4">
+<form action="/addAccountt/<%= user._id %>" method="post" enctype="multipart/form-data">
+
+     <!-- Bank Account Information -->
+     <h4>Informations du Compte Bancaire</h4>
+     <!-- Account Number -->
+     <div class="mb-3">
+       <label for="accountNumber" class="form-label">Numéro de Compte:</label>
+       <input type="text" class="form-control" id="accountNumber" name="accountNumber"  required>
+     </div>
+
+     <!-- Account Type -->
+     <div class="mb-3">
+         <label for="accountType" class="form-label">Type de Compte:</label>
+         <select class="form-select" id="accountType" name="accountType" required>
+           <option value="" disabled selected>Choisissez le type de compte</option>
+           <option value="Épargne">Épargne</option>
+           <option value="Chèques" >Chèques</option>
+           <option value="Jeunesse">jeunesse</option>
+         </select>
+       </div>
+
+     <!-- Balance -->
+     <div class="mb-3">
+       <label for="balance" class="form-label">Solde du Compte:</label>
+       <input type="number" class="form-control" id="balance"  name="balance"   required>
+     </div>
+
+     <div class="d-grid">
+       <input type="submit" name="submit" value="Ajouter" class="btn btn-success btn-lg" />
+     </div>
+</form>
+
+
+
+
+<%- include('layout/footer') %>

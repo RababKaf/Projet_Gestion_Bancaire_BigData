@@ -1,0 +1,75 @@
+<%- include('layout/header') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-success">
+                    <h3 class="text-light">Modifier l'utilisateur (<%= user.name %>)</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/update/<%= user._id %>" method="post" enctype="multipart/form-data">
+                        <!-- Champs pour les informations utilisateur -->
+                        <div class="mb-3">
+                            <label for="nomComplet" class="form-label">Nom Complet:</label>
+                            <input type="text" class="form-control" id="name" name="name" value="<%= user.name %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone:</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{10}" value="<%= user.phone %>" required>
+                        </div>
+                           <!-- Image -->
+                        <div class="mb-3">
+                          <label for="image" class="form-label">Image:</label>
+                          <input type="file" class="form-control form-control-lg" id="image" name="image" />
+                          <img src="<%= user.image %>" width="100" class="img-thumbnail mt-1">
+                          <input type="hidden" name="old-image" value="<%= user.image %>"/>
+                        </div>
+                    <!-- Informations du Compte Bancaire -->
+<h4>Informations du Compte Bancaire</h4>
+
+<% user.bankAccounts.forEach(account => { %>
+    <div class="mb-3">
+        <label for="accountNumber_<%= account._id %>" class="form-label">Numéro de Compte:</label>
+        <input type="text" class="form-control" id="accountNumber_<%= account.id %>" name="accountNumber<%= account._id %>" value="<%= account.accountNumber %>" required>
+    </div>
+    <div class="mb-3">
+        <label for="accountType_<%= account._id %>" class="form-label">Type de Compte:</label>
+        <select class="form-select" id="accountType_<%= account.id %>" name="accountType<%= account._id %>" required>
+            <option value="" disabled>Choisissez le type de compte</option>
+            <% ['Épargne', 'Chèques', 'Jeunesse'].forEach(type => { %>
+                <% if (type === account.accountType) { %>
+                    <option value="<%= type %>" selected><%= type %></option>
+                <% } else { %>
+                    <option value="<%= type %>"><%= type %></option>
+                <% } %>
+            <% }); %>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="balance" class="form-label">Solde du Compte:</label>
+        <input type="number" class="form-control" id="balance_<%= account.id %>" value="<%= account.balance %>" name="balance<%= account._id %>">
+    </div>
+<% }); %>
+
+</div>  <!-- Bouton de soumission -->
+<div class="d-grid">
+    <input type="submit" name="submit" value="Modifier" class="btn btn-success btn-lg" />
+</div>                  
+</form>
+ 
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('layout/footer') %>
